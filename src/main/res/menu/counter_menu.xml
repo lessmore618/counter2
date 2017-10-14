@@ -2,6 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:counter="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/menu_reset"
+        android:icon="?drawableReset"
+        android:orderInCategory="1"
+        android:title="@string/menu_reset"
+        counter:showAsAction="always" />
+    <item
         android:id="@+id/menu_edit"
         android:icon="?drawableEdit"
         android:orderInCategory="2"
@@ -14,9 +20,32 @@
         android:title="@string/menu_delete"
         counter:showAsAction="ifRoom" />
     <item
-        android:id="@+id/menu_reset"
-        android:icon="?drawableReset"
-        android:orderInCategory="1"
-        android:title="@string/menu_reset"
-        counter:showAsAction="always" />
+        android:id="@+id/menu_widget"
+        android:icon="?drawableDelete"
+        android:orderInCategory="4"
+        android:title="@string/menu_widget"
+        android:visible="false"
+        counter:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_hide"
+        android:checkable="true"
+        android:orderInCategory="5"
+        android:title="@string/menu_hide"
+        android:visible="true"
+        counter:showAsAction="ifRoom" />
+
+    <!--<group android:checkableBehavior="all">-->
+        <!--<item android:id="@+id/item1"-->
+            <!--android:titleCondensed="Options"-->
+            <!--android:title="Highlight Options"-->
+            <!--android:icon="@android:drawable/ic_menu_agenda">-->
+        <!--</item>-->
+        <!--<item android:id="@+id/item2"-->
+            <!--android:titleCondensed="Persist"-->
+            <!--android:title="Persist"-->
+            <!--android:icon="@android:drawable/ic_menu_preferences"-->
+            <!--android:checkable="true">-->
+        <!--</item>-->
+    <!--</group>-->
+
 </menu>

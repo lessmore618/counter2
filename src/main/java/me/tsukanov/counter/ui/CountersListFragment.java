@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -89,5 +90,30 @@ public class CountersListFragment extends ListFragment {
         }
 
     }
+
+
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+////            case R.id.menu_reset:
+////                showResetConfirmationDialog();
+////                return true;
+////            case R.id.menu_edit:
+////                showEditDialog();
+////                return true;
+////            case R.id.menu_delete:
+////                showDeleteDialog();
+////                return true;
+//            case R.id.menu_hide:
+//                // not implemented yet
+//                // IMPLEMENTING
+//
+//                return true;
+//
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
+
 
 }

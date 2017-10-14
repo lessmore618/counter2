@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 18
+
+* custom changes (settings)
+* hidden mode support
+* widget support (working on)
+
 ## Version 17
 
 * Dark theme

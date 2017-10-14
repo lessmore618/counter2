@@ -1,5 +1,8 @@
 package me.tsukanov.counter.ui;
 
+// todo: bug: hide menu (hidden mode) icon when clicking list-fragment burger icon
+// bug:
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -15,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import me.tsukanov.counter.CounterApplication;
 import me.tsukanov.counter.R;
@@ -69,7 +73,12 @@ public class MainActivity extends AppCompatActivity {
         ) {
             public void onDrawerClosed(View view) {
                 title = currentCounter.getName();
-                actionBar.setTitle(title);
+                boolean hiddenModeOn = sharedPref.getBoolean("hiddenModeOn", false);
+
+                Toast.makeText(getApplicationContext(), "onDrawerClosed: "+hiddenModeOn,
+                        Toast.LENGTH_SHORT).show();
+
+                actionBar.setTitle(hiddenModeOn ? "" : title);
                 supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
@@ -83,11 +92,26 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             title = savedInstanceState.getCharSequence(STATE_TITLE);
             if (savedInstanceState.getBoolean(STATE_IS_NAV_OPEN)) {
-                actionBar.setTitle(drawerTitle);
+//                actionBar.setTitle(drawerTitle);
+                actionBar.setTitle("abc");
+//                boolean hiddenModeOn = sharedPref.getBoolean("hiddenModeOn", false);
+//                actionBar.setTitle(hiddenModeOn ? "" : drawerTitle);
+//                actionBar.setTitle("abc");
+
             } else {
-                actionBar.setTitle(title);
+//                actionBar.setTitle(title);
+                actionBar.setTitle("def");
+//                boolean hiddenModeOn = sharedPref.getBoolean("hiddenModeOn", false);
+//                actionBar.setTitle(hiddenModeOn ? "" : title);
+//                actionBar.setTitle("def");
+
             }
         }
+
+//        // added code // didn't work // commenting
+//        boolean hiddenModeOn = sharedPref.getBoolean("hiddenModeOn", false);
+//        if(hiddenModeOn) actionBar.setTitle("");
+
     }
 
     @Override
@@ -162,6 +186,16 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
+
+            case R.id.menu_hide:
+                // critical piece of code
+                boolean hiddenModeOn = !item.isChecked(); // consistent with visual
+                item.setChecked(hiddenModeOn);
+                sharedPref.edit().putBoolean("hiddenModeOn",hiddenModeOn).apply();
+//                actionBar.setTitle(hiddenModeOn ? "" : title);
+
+                return false;
+
             default:
                 return super.onOptionsItemSelected(item);
         }

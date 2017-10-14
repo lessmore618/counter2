@@ -31,7 +31,8 @@ import me.tsukanov.counter.ui.dialogs.DeleteDialog;
 import me.tsukanov.counter.ui.dialogs.EditDialog;
 
 public class CounterFragment extends Fragment {
-    public static final int MAX_VALUE = 9999;
+//    public static final int MAX_VALUE = 9999;
+    public static final int MAX_VALUE = 10000;
     public static final int MIN_VALUE = 0;
     public static final int DEFAULT_VALUE = MIN_VALUE;
     private static final long DEFAULT_VIBRATION_DURATION = 30; // Milliseconds
@@ -86,6 +87,29 @@ public class CounterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.counter, container, false);
 
+
+
+
+        int backgroundTapAction = Integer.parseInt(settings.getString("backgroundTapAction", "0"));
+
+        if (backgroundTapAction > 0) {
+            view.setOnClickListener(new OnClickListener() {
+                public void onClick(View v) {
+                    increment();
+                }
+            });
+        } else if (backgroundTapAction < 0) {
+            view.setOnClickListener(new OnClickListener() {
+                public void onClick(View v) {
+                    decrement();
+                }
+            });
+        }
+
+//        else {
+//            view.setClickable(false); // redundant
+//        }
+
         counterLabel = (TextView) view.findViewById(R.id.counterLabel);
 
         incrementButton = (Button) view.findViewById(R.id.incrementButton);
@@ -95,12 +119,20 @@ public class CounterFragment extends Fragment {
             }
         });
 
+        // ADDING CODE
+        boolean showIncrement = settings.getBoolean("showIncrement", false);
+        incrementButton.setVisibility(showIncrement ? View.VISIBLE : View.GONE);
+
         decrementButton = (Button) view.findViewById(R.id.decrementButton);
         decrementButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 decrement();
             }
         });
+
+        // ADDING CODE
+        boolean showDecrement = settings.getBoolean("showDecrement", false);
+        decrementButton.setVisibility(showDecrement ? View.VISIBLE : View.GONE);
 
         if (name == null) name = getActivity().getString(R.string.default_counter_name);
         if (app.counters.containsKey(name)) {
@@ -109,7 +141,11 @@ public class CounterFragment extends Fragment {
             app.counters.put(name, value);
         }
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(name);
+        boolean hiddenModeOn = settings.getBoolean("hiddenModeOn", false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(hiddenModeOn ? "   " : name); // half solution
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(name);
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("abcefdsf");
+        counterLabel.setVisibility(hiddenModeOn ? View.INVISIBLE : View.VISIBLE);
 
         return view;
     }
@@ -117,6 +153,11 @@ public class CounterFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.counter_menu, menu);
+
+        boolean hiddenModeOn = settings.getBoolean("hiddenModeOn", false);
+        /*MenuItem boatClassSelectedButton = *//*(MenuItem) */
+        menu.findItem(R.id.menu_hide).setChecked(hiddenModeOn);
+
     }
 
     @Override
@@ -173,10 +214,35 @@ public class CounterFragment extends Fragment {
             case R.id.menu_delete:
                 showDeleteDialog();
                 return true;
+            case R.id.menu_hide:
+                // not implemented yet
+                // IMPLEMENTING
+                // PUT LATER IN FUNCTION
+//                item.setChecked(hiddenModeOn);
+//                settings.edit().putBoolean("hiddenModeOn",hiddenModeOn).apply();
+
+                // work follows MainActivity editing
+                boolean hiddenModeOn = item.isChecked();
+                counterLabel.setVisibility(hiddenModeOn ? View.INVISIBLE : View.VISIBLE);
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(hiddenModeOn ? "   " : name); // half solution
+                return true;
+
+            case R.id.menu_widget:
+                // not implemented yet
+                return false;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+//    private void toggleHiddenState() {
+    // NOT IMPLEMENTED YET
+//
+//        counterLabel.setVisibility(View.INVISIBLE);
+//
+//    }
+
 
     private void showResetConfirmationDialog() {
         Dialog dialog = new AlertDialog.Builder(getActivity())
@@ -206,15 +272,38 @@ public class CounterFragment extends Fragment {
 
     public void increment() {
         if (value < MAX_VALUE) {
-            setValue(++value);
+
+//            setValue(++value);
+            // ADDING CODE
+            int countAmount = Integer.parseInt(settings.getString("countAmount", "1"));
+            int newValue = value + countAmount;
+            if (value > MAX_VALUE) {
+                value = MAX_VALUE;
+            } else if (value < MIN_VALUE) {
+                value = MIN_VALUE;
+            }
+            setValue(newValue);
+
             vibrate(DEFAULT_VIBRATION_DURATION);
             playSound(Sound.INCREMENT_SOUND);
         }
     }
 
     public void decrement() {
+
         if (value > MIN_VALUE) {
-            setValue(--value);
+//            setValue(--value);
+            // ADDING CODE
+            int countAmount = Integer.parseInt(settings.getString("countAmount", "1"));
+            int newValue = value - countAmount;
+            if (value > MAX_VALUE) {
+                value = MAX_VALUE;
+            } else if (value < MIN_VALUE) {
+                value = MIN_VALUE;
+            }
+            setValue(newValue);
+
+
             vibrate(DEFAULT_VIBRATION_DURATION + 20);
             playSound(Sound.DECREMENT_SOUND);
         }
