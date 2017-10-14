@@ -60,6 +60,7 @@
     <string name="settings_custom">Custom</string>
     <string name="settings_version_title">Version</string>
     <string name="settings_wipe_title">Remove all counters</string>
+    <string name="settings_restore_defaults_title">Restore default settings</string>
     <string name="settings_wipe_confirmation">Do you really want to remove all counters?</string>
     <string name="settings_wipe_confirmation_yes">Remove all</string>
     <string name="settings_show_decrement_title">Decrement button</string>
@@ -70,8 +71,8 @@
     <string name="settings_background_increment_summary">Increment upon tapping on background</string>
     <string name="settings_count_amount_title">Count amount</string>
     <string name="settings_count_amount_summary">Number to add to counter on each increment</string>
-    <string name="settings_vibration_time_summary">Vibration time</string>
-    <string name="settings_vibration_time_title">Time of tick vibration in milliseconds</string>
+    <string name="settings_vibration_time_title">Vibration time</string>
+    <string name="settings_vibration_time_summary">Time of tick vibration in milliseconds</string>
     <string name="settings_checkpoint_vibration_time_summary">Checkpoint vibration time</string>
     <string name="settings_checkpoint_vibration_time_title">Time of tick vibration at checkpoints in milliseconds</string>
     <string name="settings_checkpoint_value_title">Checkpoint value</string>

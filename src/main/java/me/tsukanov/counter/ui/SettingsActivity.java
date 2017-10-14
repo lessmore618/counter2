@@ -34,6 +34,7 @@ import me.tsukanov.counter.R;
 
 public class SettingsActivity extends PreferenceActivity implements OnPreferenceChangeListener, SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String KEY_REMOVE_COUNTERS = "removeCounters";
+    private static final String KEY_RESTORE_DEFAULT_SETTINGS = "restoreDefaultSettings"; // ADDED CODE
     private static final String KEY_VERSION = "version";
     private static final String KEY_THEME = "theme";
     // ADDING CODE
@@ -44,6 +45,17 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 
     private static final int MIN_COUNT_TICKS = 1;
     private static final int MAX_COUNT_TICKS = 100;
+
+    // TODO: SPECIFY LOGICAL VALUES
+
+    private static final int MIN_VIBRATION_DURATION = 1;
+    private static final int MAX_VIBRATION_DURATION = 100;
+
+    private static final int MIN_CHECKPOINT_VIBRATION_DURATION = 1;
+    private static final int MAX_CHECKPOINT_VIBRATION_DURATION = 100;
+
+    private static final int MIN_CHECKPOINT_VALUE = 2;
+    private static final int MAX_CHECKPOINT_VALUE = 100;
 
 
     private SharedPreferences mSharedPref;
@@ -324,6 +336,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
             findPreference(KEY_VERSION).setSummary(mAppVersion);
             findPreference(KEY_THEME).setSummary(mTheme);
             findPreference(KEY_REMOVE_COUNTERS).setOnPreferenceClickListener(mOnRemoveCountersClickListener);
+
             // ADDING CODE
             findPreference(KEY_COUNT_AMOUNT).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
@@ -340,33 +353,74 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
                     settings.edit().putString(KEY_COUNT_AMOUNT, "" + val).apply();
                     return false;
 
+                }
+            });
 
-//                    if(newValue!=oldValue){
-//
-//                        settings.edit().putString(KEY_COUNT_AMOUNT,""+newValue).apply();
-//                        return false;
-//                    } else {
-//                        return true;
-//
-//                    }
+            // ADDING CODE
+            findPreference("vibrationTime").setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object value) {
 
-//                    int val2 = Integer.parseInt(settings.getString(KEY_COUNT_AMOUNT,"1"));
+                    int val = Integer.parseInt((String) value);
+                    if (val < MIN_VIBRATION_DURATION) {
+                        val = MIN_VIBRATION_DURATION;
+                    } else if (val > MAX_VIBRATION_DURATION) {
+                        val = MAX_VIBRATION_DURATION;
+                    }
 
-//                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
-//                    SharedPreferences.Editor prefEditor = sharedPref.edit(); // Get preference in editor mode
-//                    prefEditor.putString("your_edit_text_pref_key", "DEFAULT-VALUE"); // set your default value here (could be empty as well)
-//                    prefEditor.commit(); // finally save changes
+                    // TODO: ADD TOAST
 
-
-//                    try {
-//                        Toast.makeText(getContext(), "Value saved: " + newValue, Toast.LENGTH_LONG).show();
-//                    } catch (Exception e) {
-//
-//                    }
-//                    return false;
+                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                    settings.edit().putString("vibrationTime", "" + val).apply();
+                    return false;
 
                 }
             });
+
+            // ADDING CODE
+            findPreference("checkpointVibrationTime").setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object value) {
+
+                    int val = Integer.parseInt((String) value);
+                    if (val < MIN_CHECKPOINT_VIBRATION_DURATION) {
+                        val = MIN_CHECKPOINT_VIBRATION_DURATION;
+                    } else if (val > MAX_CHECKPOINT_VIBRATION_DURATION) {
+                        val = MAX_CHECKPOINT_VIBRATION_DURATION;
+                    }
+
+                    // TODO: ADD TOAST
+
+                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                    settings.edit().putString("checkpointVibrationTime", "" + val).apply();
+                    return false;
+
+                }
+            });
+
+
+            // ADDING CODE
+            findPreference("checkpointValue").setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object value) {
+
+                    int val = Integer.parseInt((String) value);
+                    if (val < MIN_CHECKPOINT_VALUE) {
+                        val = MIN_CHECKPOINT_VALUE;
+                    } else if (val > MAX_CHECKPOINT_VALUE) {
+                        val = MAX_CHECKPOINT_VALUE;
+                    }
+
+                    // TODO: ADD TOAST
+
+                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                    settings.edit().putString("checkpointValue", "" + val).apply();
+                    return false;
+
+                }
+            });
+
+
         }
     }
 }

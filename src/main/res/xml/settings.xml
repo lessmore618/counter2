@@ -127,6 +127,10 @@
             android:key="removeCounters"
             android:title="@string/settings_wipe_title" />
         <Preference
+            android:key="restoreDefaultSettings"
+            android:title="@string/settings_restore_defaults_title" />
+
+        <Preference
             android:enabled="false"
             android:key="version"
             android:summary="@string/unknown"
