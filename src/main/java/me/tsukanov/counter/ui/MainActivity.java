@@ -6,8 +6,11 @@ package me.tsukanov.counter.ui;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -25,13 +28,15 @@ import me.tsukanov.counter.R;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String STATE_ACTIVE_COUNTER = "activeKey";
     private static final String STATE_TITLE = "title";
     private static final String STATE_IS_NAV_OPEN = "is_nav_open";
-    public static final String STATE_ACTIVE_COUNTER = "activeKey";
     private static final String PREF_KEEP_SCREEN_ON = "keepScreenOn";
     private static final String PREF_THEME = "theme";
     private static final String THEME_DARK = "dark";
     private static final String THEME_LIGHT = "light";
+    private static final int SYSTEM_ALERT_WINDOW_PERMISSION = 2084;
+
     public CountersListFragment countersListFragment;
     public CounterFragment currentCounter;
     private CounterApplication app;
@@ -48,9 +53,15 @@ public class MainActivity extends AppCompatActivity {
         if (sharedPref.getString(PREF_THEME, THEME_LIGHT).equals(THEME_DARK)) {
             setTheme(R.style.AppTheme_Dark);
         }
-        
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer_layout);
+
+
+// ADDING CODE // WIDGET
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
+            askPermission();
+        }
 
         app = (CounterApplication) getApplication();
 
@@ -75,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 title = currentCounter.getName();
                 boolean hiddenModeOn = sharedPref.getBoolean("hiddenModeOn", false);
 
-                Toast.makeText(getApplicationContext(), "onDrawerClosed: "+hiddenModeOn,
+                Toast.makeText(getApplicationContext(), "onDrawerClosed: " + hiddenModeOn,
                         Toast.LENGTH_SHORT).show();
 
                 actionBar.setTitle(hiddenModeOn ? "" : title);
@@ -113,6 +124,13 @@ public class MainActivity extends AppCompatActivity {
 //        if(hiddenModeOn) actionBar.setTitle("");
 
     }
+
+    private void askPermission() {
+        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                Uri.parse("package:" + getPackageName()));
+        startActivityForResult(intent, SYSTEM_ALERT_WINDOW_PERMISSION);
+    }
+
 
     @Override
     protected void onResume() {
@@ -191,10 +209,43 @@ public class MainActivity extends AppCompatActivity {
                 // critical piece of code
                 boolean hiddenModeOn = !item.isChecked(); // consistent with visual
                 item.setChecked(hiddenModeOn);
-                sharedPref.edit().putBoolean("hiddenModeOn",hiddenModeOn).apply();
+                sharedPref.edit().putBoolean("hiddenModeOn", hiddenModeOn).apply();
 //                actionBar.setTitle(hiddenModeOn ? "" : title);
 
                 return false;
+
+            case R.id.menu_widget:
+                // not implemented yet
+                // IMPLEMENTING
+//                startService(new Intent(MainActivity.this, FloatingViewService.class));
+//                finish();
+
+
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                    startService(new Intent(MainActivity.this, FloatingViewService.class));
+                    finish();
+                } else if (Settings.canDrawOverlays(this)) {
+                    startService(new Intent(MainActivity.this, FloatingViewService.class));
+                    finish();
+                } else {
+                    askPermission();
+                    Toast.makeText(this, "You need System Alert Window Permission to do this", Toast.LENGTH_SHORT).show();
+                }
+
+//
+//                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+//                    startService(new Intent(MainActivity.this, FloatingViewService.class));
+//                    finish();
+//                } else if (Settings.canDrawOverlays(this)) {
+//                    startService(new Intent(MainActivity.this, FloatingViewService.class));
+//                    finish();
+//                } else {
+//                    askPermission();
+//                    Toast.makeText(this, "You need System Alert Window Permission to do this", Toast.LENGTH_SHORT).show();
+//                }
+
+                return false;
+
 
             default:
                 return super.onOptionsItemSelected(item);

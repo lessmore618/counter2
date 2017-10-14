@@ -4,6 +4,7 @@
     android:installLocation="auto">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:name=".CounterApplication"
@@ -23,6 +24,12 @@
         <activity
             android:name=".ui.SettingsActivity"
             android:label="@string/settings_title" />
+
+        <service
+            android:name=".ui.FloatingViewService"
+            android:enabled="true"
+            android:exported="false" />
+
     </application>
 
 </manifest>

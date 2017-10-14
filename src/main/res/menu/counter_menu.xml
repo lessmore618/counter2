@@ -24,7 +24,7 @@
         android:icon="?drawableDelete"
         android:orderInCategory="4"
         android:title="@string/menu_widget"
-        android:visible="false"
+        android:visible="true"
         counter:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_hide"

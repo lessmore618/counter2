@@ -47,21 +47,20 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     private static final int MAX_COUNT_TICKS = 100;
 
     // TODO: SPECIFY LOGICAL VALUES
+    // now could be logical
 
     private static final int MIN_VIBRATION_DURATION = 1;
-    private static final int MAX_VIBRATION_DURATION = 100;
+    private static final int MAX_VIBRATION_DURATION = 500;
 
     private static final int MIN_CHECKPOINT_VIBRATION_DURATION = 1;
-    private static final int MAX_CHECKPOINT_VIBRATION_DURATION = 100;
+    private static final int MAX_CHECKPOINT_VIBRATION_DURATION = 1500;
 
     private static final int MIN_CHECKPOINT_VALUE = 2;
-    private static final int MAX_CHECKPOINT_VALUE = 100;
-
+    private static final int MAX_CHECKPOINT_VALUE = 10000;
 
     private SharedPreferences mSharedPref;
     private AppCompatDelegate mDelegate;
     private SettingsFragment fragment;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -349,6 +348,8 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
                         val = MAX_COUNT_TICKS;
                     }
 
+                    // TODO: ADD TOAST (for above cases, and for set value)
+
                     SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
                     settings.edit().putString(KEY_COUNT_AMOUNT, "" + val).apply();
                     return false;
@@ -368,7 +369,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
                         val = MAX_VIBRATION_DURATION;
                     }
 
-                    // TODO: ADD TOAST
+                    // TODO: ADD TOAST (for above cases, and for set value)
 
                     SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
                     settings.edit().putString("vibrationTime", "" + val).apply();
@@ -382,6 +383,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object value) {
 
+                    // checkpointVibrationTime must be between boundaries
                     int val = Integer.parseInt((String) value);
                     if (val < MIN_CHECKPOINT_VIBRATION_DURATION) {
                         val = MIN_CHECKPOINT_VIBRATION_DURATION;
@@ -389,9 +391,16 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
                         val = MAX_CHECKPOINT_VIBRATION_DURATION;
                     }
 
-                    // TODO: ADD TOAST
-
+                    // checkpointVibrationTime must be greater than vibrationTime?
                     SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                    int vibrationTime = Integer.parseInt(settings.getString("vibrationTime", "30"));
+                    if (val < vibrationTime) {
+                        val = vibrationTime;
+                    }
+
+                    // TODO: ADD TOAST (for each of above cases, and for set value)
+
+
                     settings.edit().putString("checkpointVibrationTime", "" + val).apply();
                     return false;
 
@@ -411,7 +420,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
                         val = MAX_CHECKPOINT_VALUE;
                     }
 
-                    // TODO: ADD TOAST
+                    // TODO: ADD TOAST (for above cases, and for set value)
 
                     SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
                     settings.edit().putString("checkpointValue", "" + val).apply();
