@@ -31,7 +31,7 @@ import me.tsukanov.counter.ui.dialogs.DeleteDialog;
 import me.tsukanov.counter.ui.dialogs.EditDialog;
 
 public class CounterFragment extends Fragment {
-//    public static final int MAX_VALUE = 9999;
+    //    public static final int MAX_VALUE = 9999;
     public static final int MAX_VALUE = 10000;
     public static final int MIN_VALUE = 0;
     public static final int DEFAULT_VALUE = MIN_VALUE;
@@ -86,8 +86,6 @@ public class CounterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.counter, container, false);
-
-
 
 
         int backgroundTapAction = Integer.parseInt(settings.getString("backgroundTapAction", "0"));
@@ -284,7 +282,7 @@ public class CounterFragment extends Fragment {
             }
             setValue(newValue);
 
-            vibrate(DEFAULT_VIBRATION_DURATION);
+            vibrateTick(DEFAULT_VIBRATION_DURATION);
             playSound(Sound.INCREMENT_SOUND);
         }
     }
@@ -304,7 +302,7 @@ public class CounterFragment extends Fragment {
             setValue(newValue);
 
 
-            vibrate(DEFAULT_VIBRATION_DURATION + 20);
+            vibrateTick(DEFAULT_VIBRATION_DURATION + 20);
             playSound(Sound.DECREMENT_SOUND);
         }
     }
@@ -338,9 +336,30 @@ public class CounterFragment extends Fragment {
         else decrementButton.setEnabled(true);
     }
 
-    private void vibrate(long duration) {
+    private void vibrateTick(long duration) {
         if (settings.getBoolean("vibrationOn", true)) {
             vibrator.vibrate(duration);
+        }
+    }
+
+    // ADDING CODE
+    private void vibrateCheckpoint(long duration) {
+        if (settings.getBoolean("checkpointVibrationOn", true)) {
+            vibrator.vibrate(duration);
+        }
+    }
+
+    private void vibrate() {
+        int checkpointValue = Integer.parseInt(settings.getString("checkpointValue", "100"));
+        boolean vibrationOn = settings.getBoolean("vibrationOn", true);
+        boolean checkpointVibrationOn = settings.getBoolean("checkpointVibrationOn", true);
+        int vibrationTime = Integer.parseInt(settings.getString("vibrationTime", "30"));
+        int checkpointVibrationTime = Integer.parseInt(settings.getString("checkpointVibrationTime", "90"));
+
+        if (value % checkpointValue == 0) { // checkpoint case
+            if (checkpointVibrationOn) vibrator.vibrate(vibrationTime);
+        } else { // normal case
+            if (vibrationOn) vibrator.vibrate(vibrationTime);
         }
     }
 

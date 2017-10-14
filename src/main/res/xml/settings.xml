@@ -12,6 +12,13 @@
             android:key="vibrationOn"
             android:summary="@string/settings_vibration_summary"
             android:title="@string/settings_vibration_title" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="checkpointVibrationOn"
+            android:summary="@string/settings_checkpoint_vibration_summary"
+            android:title="@string/settings_checkpoint_vibration_title" />
+
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="hardControlOn"
@@ -61,15 +68,42 @@
 
         <EditTextPreference
             android:defaultValue="1"
-            android:dialogTitle="dialogTitle"
+            android:dialogTitle="@string/settings_count_amount_summary"
             android:inputType="number"
             android:key="countAmount"
             android:selectAllOnFocus="true"
-
             android:summary="@string/settings_count_amount_summary"
             android:title="@string/settings_count_amount_title"
+            />
 
+        <EditTextPreference
+            android:defaultValue="30"
+            android:dialogTitle="dialogTitle"
+            android:inputType="number"
+            android:key="vibrationTime"
+            android:selectAllOnFocus="true"
+            android:summary="@string/settings_vibration_time_summary"
+            android:title="@string/settings_vibration_time_title"
+            />
 
+        <EditTextPreference
+            android:defaultValue="90"
+            android:dialogTitle="dialogTitle"
+            android:inputType="number"
+            android:key="checkpointVibrationTime"
+            android:selectAllOnFocus="true"
+            android:title="@string/settings_checkpoint_vibration_time_summary"
+            android:summary="@string/settings_checkpoint_vibration_time_title"
+            />
+
+        <EditTextPreference
+            android:defaultValue="100"
+            android:dialogTitle="dialogTitle"
+            android:inputType="number"
+            android:key="checkpointValue"
+            android:selectAllOnFocus="true"
+            android:title="@string/settings_checkpoint_value_title"
+            android:summary="@string/settings_checkpoint_value_summary"
             />
 
         <CheckBoxPreference

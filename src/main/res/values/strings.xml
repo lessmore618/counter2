@@ -52,6 +52,8 @@
     <string name="settings_sounds_summary">Play sounds</string>
     <string name="settings_vibration_title">Turn on vibration</string>
     <string name="settings_vibration_summary">Vibrate on changes</string>
+    <string name="settings_checkpoint_vibration_title">Turn on checkpoint vibration</string>
+    <string name="settings_checkpoint_vibration_summary">Vibrate on checkpoints</string>
     <string name="settings_hard_title">Use hardware buttons</string>
     <string name="settings_hard_summary">Change counter value using hardware buttons</string>
     <string name="settings_other">Other</string>
@@ -68,7 +70,13 @@
     <string name="settings_background_increment_summary">Increment upon tapping on background</string>
     <string name="settings_count_amount_title">Count amount</string>
     <string name="settings_count_amount_summary">Number to add to counter on each increment</string>
-    
+    <string name="settings_vibration_time_summary">Vibration time</string>
+    <string name="settings_vibration_time_title">Time of tick vibration in milliseconds</string>
+    <string name="settings_checkpoint_vibration_time_summary">Checkpoint vibration time</string>
+    <string name="settings_checkpoint_vibration_time_title">Time of tick vibration at checkpoints in milliseconds</string>
+    <string name="settings_checkpoint_value_title">Checkpoint value</string>
+    <string name="settings_checkpoint_value_summary">Checkpoint value (number of ticks)</string>
+
     <!-- Toasts -->
     <string name="toast_wipe_success">All counters have been removed.</string>
     <string name="toast_remove_success">Counter \"%s\" has been removed.</string>
