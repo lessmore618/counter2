@@ -58,6 +58,9 @@
     <string name="settings_hard_summary">Change counter value using hardware buttons</string>
     <string name="settings_other">Other</string>
     <string name="settings_custom">Custom</string>
+    <string name="settings_widget">Widget</string>
+    <string name="settings_checkpoint">Checkpoint</string>
+    <string name="settings_widget_title">Customize widget</string>
     <string name="settings_version_title">Version</string>
     <string name="settings_wipe_title">Remove all counters</string>
     <string name="settings_restore_defaults_title">Restore default settings</string>
@@ -86,5 +89,15 @@
     <!-- Other stuff -->
     <string name="default_counter_name">First counter</string>
     <string name="unknown">Unknown</string>
+    <string name="settings_widget_vibration_title">Widget vibration</string>
+    <string name="settings_widget_vibration_summary">Widget vibration summary</string>
+    <string name="settings_widget_checkpoint_vibration_summary">Widget checkpoint vibration summary</string>
+    <string name="settings_widget_checkpoint_vibration_title">Widget checkpoint vibration</string>
+    <string name="settings_widget_screen_percentage_summary">Widget screen percentage</string>
+    <string name="settings_widget_screen_percentage_title">Widget screen percentage</string>
+    <string name="settings_widget_transparency_summary">Widget transparency summary</string>
+    <string name="settings_widget_transparency_title">Widget transparency</string>
+    <string name="settings_widget_sounds_summary">Widget sounds summary</string>
+    <string name="settings_widget_sounds_title">Widget sounds</string>
 
 </resources>

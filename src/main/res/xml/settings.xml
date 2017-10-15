@@ -38,8 +38,102 @@
             android:key="keepScreenOn"
             android:summary="@string/settings_keep_on_summary"
             android:title="@string/settings_keep_on_title" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="showIncrement"
+            android:summary="@string/settings_show_increment_summary"
+            android:title="@string/settings_show_increment_title" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="showDecrement"
+            android:summary="@string/settings_show_decrement_summary"
+            android:title="@string/settings_show_decrement_title" />
+
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/settings_widget">
+
+        <Preference
+            android:key="openWidgetSettings"
+            android:title="@string/settings_widget_title" />
+
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="soundsOn"
+            android:summary="@string/settings_widget_sounds_summary"
+            android:title="@string/settings_widget_sounds_title" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="vibrationOn"
+            android:summary="@string/settings_widget_vibration_summary"
+            android:title="@string/settings_widget_vibration_title" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="vibrationOn"
+            android:summary="@string/settings_widget_checkpoint_vibration_summary"
+            android:title="@string/settings_widget_checkpoint_vibration_title" />
+
+        <EditTextPreference
+            android:defaultValue="50"
+            android:dialogTitle="dialogTitle"
+            android:inputType="number"
+            android:key="widgetScreenPercentage"
+            android:selectAllOnFocus="true"
+            android:summary="@string/settings_widget_screen_percentage_summary"
+            android:title="@string/settings_widget_screen_percentage_title" />
+
+        <EditTextPreference
+            android:defaultValue="50"
+            android:dialogTitle="dialogTitle"
+            android:inputType="number"
+            android:key="widgetTransparency"
+            android:selectAllOnFocus="true"
+            android:summary="@string/settings_widget_transparency_summary"
+            android:title="@string/settings_widget_transparency_title" />
+
+        <!--// todo: add widget front color-->
+        <!--// todo: add widget back color-->
+        <!--// todo: show fixed widget demo view while editing widget parameters -->
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/settings_checkpoint">
+
+        <EditTextPreference
+            android:defaultValue="100"
+            android:dialogTitle="dialogTitle"
+            android:inputType="number"
+            android:key="checkpointValue"
+            android:selectAllOnFocus="true"
+            android:summary="@string/settings_checkpoint_value_summary"
+            android:title="@string/settings_checkpoint_value_title" />
+
+        <EditTextPreference
+            android:defaultValue="30"
+            android:dialogTitle="dialogTitle"
+            android:inputType="number"
+            android:key="vibrationTime"
+            android:selectAllOnFocus="true"
+            android:summary="@string/settings_vibration_time_summary"
+            android:title="@string/settings_vibration_time_title" />
+
+        <EditTextPreference
+            android:defaultValue="90"
+            android:dialogTitle="dialogTitle"
+            android:inputType="number"
+            android:key="checkpointVibrationTime"
+            android:selectAllOnFocus="true"
+            android:summary="@string/settings_checkpoint_vibration_time_title"
+            android:title="@string/settings_checkpoint_vibration_time_summary" />
+
+    </PreferenceCategory>
+
+    <!--<PreferenceCategory android:title="@string/settings_vibration"></PreferenceCategory>-->
 
     <PreferenceCategory android:title="@string/settings_custom">
 
@@ -50,7 +144,6 @@
         //todo: add counter initial value (reverse counting)
         -->
 
-
         <ListPreference
             android:defaultValue="0"
             android:entries="@array/backgroundTapActionSelection"
@@ -59,12 +152,12 @@
             android:title="@string/settings_background_tap_title" />
 
         <!--<CheckBoxPreference-->
-            <!--android:defaultValue="true"-->
-            <!--android:key="backgroundTapIncrement"-->
-            <!--android:summary="@string/settings_background_increment_summary"-->
-            <!--android:title="@string/settings_background_increment_title"-->
-            <!--android:visibility="invisible"-->
-            <!--/>-->
+        <!--android:defaultValue="true"-->
+        <!--android:key="backgroundTapIncrement"-->
+        <!--android:summary="@string/settings_background_increment_summary"-->
+        <!--android:title="@string/settings_background_increment_title"-->
+        <!--android:visibility="invisible"-->
+        <!--/>-->
 
         <EditTextPreference
             android:defaultValue="1"
@@ -73,51 +166,7 @@
             android:key="countAmount"
             android:selectAllOnFocus="true"
             android:summary="@string/settings_count_amount_summary"
-            android:title="@string/settings_count_amount_title"
-            />
-
-        <EditTextPreference
-            android:defaultValue="30"
-            android:dialogTitle="dialogTitle"
-            android:inputType="number"
-            android:key="vibrationTime"
-            android:selectAllOnFocus="true"
-            android:summary="@string/settings_vibration_time_summary"
-            android:title="@string/settings_vibration_time_title"
-            />
-
-        <EditTextPreference
-            android:defaultValue="90"
-            android:dialogTitle="dialogTitle"
-            android:inputType="number"
-            android:key="checkpointVibrationTime"
-            android:selectAllOnFocus="true"
-            android:title="@string/settings_checkpoint_vibration_time_summary"
-            android:summary="@string/settings_checkpoint_vibration_time_title"
-            />
-
-        <EditTextPreference
-            android:defaultValue="100"
-            android:dialogTitle="dialogTitle"
-            android:inputType="number"
-            android:key="checkpointValue"
-            android:selectAllOnFocus="true"
-            android:title="@string/settings_checkpoint_value_title"
-            android:summary="@string/settings_checkpoint_value_summary"
-            />
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="showIncrement"
-            android:summary="@string/settings_show_increment_summary"
-            android:title="@string/settings_show_increment_title"
-            />
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="showDecrement"
-            android:summary="@string/settings_show_decrement_summary"
-            android:title="@string/settings_show_decrement_title" />
+            android:title="@string/settings_count_amount_title" />
 
     </PreferenceCategory>
 

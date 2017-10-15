@@ -5,15 +5,12 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.SoundPool;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseIntArray;
@@ -27,7 +24,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import me.tsukanov.counter.CounterApplication;
 import me.tsukanov.counter.R;
@@ -35,6 +31,15 @@ import me.tsukanov.counter.ui.dialogs.DeleteDialog;
 import me.tsukanov.counter.ui.dialogs.EditDialog;
 
 public class CounterFragment extends Fragment {
+
+
+//    int checkpointValue = Integer.parseInt(settings.getString("checkpointValue", "100"));
+//    boolean vibrationOn = settings.getBoolean("vibrationOn", true);
+//    boolean checkpointVibrationOn = settings.getBoolean("checkpointVibrationOn", true);
+//    int vibrationTime = Integer.parseInt(settings.getString("vibrationTime", "30"));
+//    int checkpointVibrationTime = Integer.parseInt(settings.getString("checkpointVibrationTime", "90"));
+
+
     //    public static final int MAX_VALUE = 9999;
     public static final int MAX_VALUE = 10000;
     public static final int MIN_VALUE = 0;
@@ -108,10 +113,6 @@ public class CounterFragment extends Fragment {
             });
         }
 
-//        else {
-//            view.setClickable(false); // redundant
-//        }
-
         counterLabel = (TextView) view.findViewById(R.id.counterLabel);
 
         incrementButton = (Button) view.findViewById(R.id.incrementButton);
@@ -144,9 +145,7 @@ public class CounterFragment extends Fragment {
         }
 
         boolean hiddenModeOn = settings.getBoolean("hiddenModeOn", false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(hiddenModeOn ? "   " : name); // half solution
-//        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(name);
-//        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("abcefdsf");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(hiddenModeOn ? "" : name);
         counterLabel.setVisibility(hiddenModeOn ? View.INVISIBLE : View.VISIBLE);
 
         return view;
@@ -219,33 +218,15 @@ public class CounterFragment extends Fragment {
             case R.id.menu_hide:
                 // not implemented yet
                 // IMPLEMENTING
-                // PUT LATER IN FUNCTION
-//                item.setChecked(hiddenModeOn);
-//                settings.edit().putBoolean("hiddenModeOn",hiddenModeOn).apply();
-
-                // work follows MainActivity editing
                 boolean hiddenModeOn = item.isChecked();
                 counterLabel.setVisibility(hiddenModeOn ? View.INVISIBLE : View.VISIBLE);
-                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(hiddenModeOn ? "   " : name); // half solution
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(hiddenModeOn ? "" : name);
+
+
                 return true;
 
             case R.id.menu_widget:
-                // not implemented yet
-                // IMPLEMENTING
-
-//
-//
-//                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-//                    startService(new Intent(MainActivity.this, FloatingViewService.class));
-//                    finish();
-//                } else if (Settings.canDrawOverlays(this)) {
-//                    startService(new Intent(MainActivity.this, FloatingViewService.class));
-//                    finish();
-//                } else {
-//                    askPermission();
-//                    Toast.makeText(this, "You need System Alert Window Permission to do this", Toast.LENGTH_SHORT).show();
-//                }
-
+                // IMPLEMENTED IN MAIN ACTIVITY
                 return false;
 
             default:
@@ -255,9 +236,12 @@ public class CounterFragment extends Fragment {
 
 //    private void toggleHiddenState() {
     // NOT IMPLEMENTED YET
-//
-//        counterLabel.setVisibility(View.INVISIBLE);
-//
+    // IMPLEMENTING
+
+//    boolean hiddenModeOn = item.isChecked();
+//                counterLabel.setVisibility(hiddenModeOn ? View.INVISIBLE : View.VISIBLE);
+//                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(hiddenModeOn ? "" : name);
+
 //    }
 
 
@@ -289,7 +273,6 @@ public class CounterFragment extends Fragment {
 
     public void increment() {
         if (value < MAX_VALUE) {
-
 //            setValue(++value);
             // ADDING CODE
             int countAmount = Integer.parseInt(settings.getString("countAmount", "1"));
@@ -369,6 +352,7 @@ public class CounterFragment extends Fragment {
     }
 
     private void vibrate() {
+
         int checkpointValue = Integer.parseInt(settings.getString("checkpointValue", "100"));
         boolean vibrationOn = settings.getBoolean("vibrationOn", true);
         boolean checkpointVibrationOn = settings.getBoolean("checkpointVibrationOn", true);
@@ -376,7 +360,7 @@ public class CounterFragment extends Fragment {
         int checkpointVibrationTime = Integer.parseInt(settings.getString("checkpointVibrationTime", "90"));
 
         if (value % checkpointValue == 0) { // checkpoint case
-            if (checkpointVibrationOn) vibrator.vibrate(vibrationTime);
+            if (checkpointVibrationOn) vibrator.vibrate(checkpointVibrationTime);
         } else { // normal case
             if (vibrationOn) vibrator.vibrate(vibrationTime);
         }

@@ -85,8 +85,8 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
         addPreferencesFromResource(R.xml.settings);
         findPreference(KEY_VERSION).setSummary(getAppVersion());
         findPreference(KEY_THEME).setSummary(getCurrentThemeName());
-        findPreference(KEY_REMOVE_COUNTERS)
-                .setOnPreferenceClickListener(getOnRemoveCountersClickListener());
+        findPreference(KEY_REMOVE_COUNTERS).setOnPreferenceClickListener(getOnRemoveCountersClickListener());
+        // key part (use)
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -410,6 +410,10 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 
             // ADDING CODE
             findPreference("checkpointValue").setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+                // TODO: ADD TOAST (for above cases, and for set value)
+
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object value) {
 
@@ -420,12 +424,21 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
                         val = MAX_CHECKPOINT_VALUE;
                     }
 
-                    // TODO: ADD TOAST (for above cases, and for set value)
-
-                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
                     settings.edit().putString("checkpointValue", "" + val).apply();
                     return false;
 
+                }
+            });
+
+
+            findPreference("openWidgetSettings").setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+
+
+                    addPreferencesFromResource(R.xml.widget_settings);
+
+                    return false;
                 }
             });
 

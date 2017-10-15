@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String PREF_THEME = "theme";
     private static final String THEME_DARK = "dark";
     private static final String THEME_LIGHT = "light";
+    private static final String HIDDEN_MODE = "hiddenModeOn";
     private static final int SYSTEM_ALERT_WINDOW_PERMISSION = 2084;
 
     public CountersListFragment countersListFragment;
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         ) {
             public void onDrawerClosed(View view) {
                 title = currentCounter.getName();
-                boolean hiddenModeOn = sharedPref.getBoolean("hiddenModeOn", false);
+                boolean hiddenModeOn = sharedPref.getBoolean(HIDDEN_MODE, false);
 
                 Toast.makeText(getApplicationContext(), "onDrawerClosed: " + hiddenModeOn,
                         Toast.LENGTH_SHORT).show();
@@ -105,12 +106,12 @@ public class MainActivity extends AppCompatActivity {
             title = savedInstanceState.getCharSequence(STATE_TITLE);
             if (savedInstanceState.getBoolean(STATE_IS_NAV_OPEN)) {
 //                actionBar.setTitle(drawerTitle);
-                boolean hiddenModeOn = sharedPref.getBoolean("hiddenModeOn", false);
+                boolean hiddenModeOn = sharedPref.getBoolean(HIDDEN_MODE, false);
                 actionBar.setTitle(hiddenModeOn ? "" : drawerTitle);
 
             } else {
 //                actionBar.setTitle(title);
-                boolean hiddenModeOn = sharedPref.getBoolean("hiddenModeOn", false);
+                boolean hiddenModeOn = sharedPref.getBoolean(HIDDEN_MODE, false);
                 actionBar.setTitle(hiddenModeOn ? "" : title);
 
             }
@@ -203,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                 // IMPLEMENTING
                 boolean hiddenModeOn = !item.isChecked(); // consistent with visual
                 item.setChecked(hiddenModeOn);
-                sharedPref.edit().putBoolean("hiddenModeOn", hiddenModeOn).apply();
+                sharedPref.edit().putBoolean(HIDDEN_MODE, hiddenModeOn).apply();
 
                 return false; // forwarded to fragment
 
