@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 // ADDING CODE // WIDGET
+        // TODO: ANDROID 8.0 CHECK CASE REGARDING PERMISSION NAME // TEST ON ANDROID 8.0
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
             askPermission();
         }
