@@ -104,24 +104,16 @@ public class MainActivity extends AppCompatActivity {
             title = savedInstanceState.getCharSequence(STATE_TITLE);
             if (savedInstanceState.getBoolean(STATE_IS_NAV_OPEN)) {
 //                actionBar.setTitle(drawerTitle);
-                actionBar.setTitle("abc");
-//                boolean hiddenModeOn = sharedPref.getBoolean("hiddenModeOn", false);
-//                actionBar.setTitle(hiddenModeOn ? "" : drawerTitle);
-//                actionBar.setTitle("abc");
+                boolean hiddenModeOn = sharedPref.getBoolean("hiddenModeOn", false);
+                actionBar.setTitle(hiddenModeOn ? "" : drawerTitle);
 
             } else {
 //                actionBar.setTitle(title);
-                actionBar.setTitle("def");
-//                boolean hiddenModeOn = sharedPref.getBoolean("hiddenModeOn", false);
-//                actionBar.setTitle(hiddenModeOn ? "" : title);
-//                actionBar.setTitle("def");
+                boolean hiddenModeOn = sharedPref.getBoolean("hiddenModeOn", false);
+                actionBar.setTitle(hiddenModeOn ? "" : title);
 
             }
         }
-
-//        // added code // didn't work // commenting
-//        boolean hiddenModeOn = sharedPref.getBoolean("hiddenModeOn", false);
-//        if(hiddenModeOn) actionBar.setTitle("");
 
     }
 
@@ -200,27 +192,22 @@ public class MainActivity extends AppCompatActivity {
                     openDrawer();
                 }
                 return true;
+
             case R.id.menu_settings:
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
 
             case R.id.menu_hide:
-                // critical piece of code
+                // IMPLEMENTING
                 boolean hiddenModeOn = !item.isChecked(); // consistent with visual
                 item.setChecked(hiddenModeOn);
                 sharedPref.edit().putBoolean("hiddenModeOn", hiddenModeOn).apply();
-//                actionBar.setTitle(hiddenModeOn ? "" : title);
 
-                return false;
+                return false; // forwarded to fragment
 
             case R.id.menu_widget:
-                // not implemented yet
                 // IMPLEMENTING
-//                startService(new Intent(MainActivity.this, FloatingViewService.class));
-//                finish();
-
-
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                     startService(new Intent(MainActivity.this, FloatingViewService.class));
                     finish();
@@ -231,18 +218,6 @@ public class MainActivity extends AppCompatActivity {
                     askPermission();
                     Toast.makeText(this, "You need System Alert Window Permission to do this", Toast.LENGTH_SHORT).show();
                 }
-
-//
-//                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-//                    startService(new Intent(MainActivity.this, FloatingViewService.class));
-//                    finish();
-//                } else if (Settings.canDrawOverlays(this)) {
-//                    startService(new Intent(MainActivity.this, FloatingViewService.class));
-//                    finish();
-//                } else {
-//                    askPermission();
-//                    Toast.makeText(this, "You need System Alert Window Permission to do this", Toast.LENGTH_SHORT).show();
-//                }
 
                 return false;
 
