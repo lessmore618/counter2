@@ -134,7 +134,7 @@ public class CounterFragment extends Fragment {
         });
 
         // ADDING CODE
-        boolean showDecrement = settings.getBoolean("showDecrement", false);
+        boolean showDecrement = settings.getBoolean("showDecrement", true);
         decrementButton.setVisibility(showDecrement ? View.VISIBLE : View.GONE);
 
         if (name == null) name = getActivity().getString(R.string.default_counter_name);

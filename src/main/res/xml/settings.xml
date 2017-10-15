@@ -46,7 +46,7 @@
             android:title="@string/settings_show_increment_title" />
 
         <CheckBoxPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:key="showDecrement"
             android:summary="@string/settings_show_decrement_summary"
             android:title="@string/settings_show_decrement_title" />
@@ -145,7 +145,7 @@
         -->
 
         <ListPreference
-            android:defaultValue="0"
+            android:defaultValue="+1"
             android:entries="@array/backgroundTapActionSelection"
             android:entryValues="@array/backgroundTapActionSelectionData"
             android:key="backgroundTapAction"

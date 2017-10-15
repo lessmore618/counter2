@@ -453,3 +453,23 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
         }
     }
 }
+
+
+/*
+
+// TODO: DEFAULT VALUES BEST PRACTICE IMPLEMENTATION 
+
+<resources>
+    <bool name="mypreference_default">true</bool>
+</resources>
+
+<CheckBoxPreference
+    android:defaultValue="@bool/mypreference_default"
+    android:key="mypreference"
+    android:title="@string/mypreference_title" />
+
+SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(context);
+Boolean value = context.getResources().getBoolean(R.bool.mypreference_default);
+Boolean b = p.getBoolean("mypreference", value);
+
+*/
