@@ -431,12 +431,19 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
             });
 
 
-            findPreference("openWidgetSettings").setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            findPreference("restoreDefaultSettings").setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
 
+                    // restore default settings
+                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                    settings.edit().clear().apply();
 
-                    addPreferencesFromResource(R.xml.widget_settings);
+                    Toast.makeText(getActivity(),
+                            "Default settings were successfully restored.",
+                            Toast.LENGTH_SHORT).show();
+
+                    // todo: make a function that updates values of components live
 
                     return false;
                 }

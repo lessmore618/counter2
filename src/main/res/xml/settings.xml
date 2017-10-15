@@ -55,10 +55,10 @@
 
     <PreferenceCategory android:title="@string/settings_widget">
 
-        <Preference
-            android:key="openWidgetSettings"
-            android:title="@string/settings_widget_title" />
-
+        <!--<Preference-->
+            <!--android:key="openWidgetSettings"-->
+            <!--android:title="@string/settings_widget_title" -->
+            <!--/>-->
 
         <CheckBoxPreference
             android:defaultValue="false"
